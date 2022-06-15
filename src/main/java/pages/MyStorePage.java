@@ -61,4 +61,20 @@ public class MyStorePage {
     public SelenideElement alertText() {
         return $(".alert-danger").as("сообщение о неуспешной смене пароля");
     }
+
+    public SelenideElement submitButton() {
+        return $("#SubmitLogin").as("кнопка входа");
+    }
+
+    public SelenideElement logoutButton() {
+        return $(".logout").as("кнопка выхода");
+    }
+
+    public SelenideElement deleteButton() {
+        return $(".cart_delete.text-center").as("кнопка удаления на странице чекаута");
+    }
+
+    public SelenideElement checkoutButton() {
+        return $(".button-medium").as("кнопка перехода в чекаут");
+    }
 }

@@ -11,6 +11,7 @@ import java.util.stream.Stream;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.Selenide.sleep;
 import static io.qameta.allure.Allure.step;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
@@ -37,6 +38,13 @@ public class MyStoreTest {
                     .shouldBe(visible)
                     .shouldHave(text("Product successfully added to your shopping cart"));
         });
+
+        step("Перейти в чекаут и проверить наличие добавленного товара", () -> {
+            TestPages.myStorePage.checkoutButton()
+                    .click();
+            TestPages.myStorePage.deleteButton()
+                    .shouldBe(visible);
+        });
     }
 
     @MethodSource("passwordChecks")
@@ -50,11 +58,14 @@ public class MyStoreTest {
                     .sendKeys("natli.d26.l8@gmail.com");
             TestPages.myStorePage.passwordInput()
                     .sendKeys("123456789");
+            TestPages.myStorePage.submitButton()
+                    .scrollTo()
+                    .click();
             TestPages.myStorePage.myAccountText()
                     .shouldBe(visible);
         });
 
-        step("Перейти в настройки аккаунта и проверить осуществление перехода", () -> {
+        step("Перейти в настройки аккаунта", () -> {
             TestPages.myStorePage.mySettingsButton()
                     .click();
             TestPages.myStorePage.oldPasswordInput()
@@ -62,7 +73,7 @@ public class MyStoreTest {
                     .shouldBe(visible);
         });
 
-        step("Ввести данные для смены пароля и проверить, что пароль не изменен", () -> {
+        step("Ввести данные для смены пароля и проверить, что пароль не изменился", () -> {
             TestPages.myStorePage.oldPasswordInput()
                     .scrollTo()
                     .shouldBe(visible);
@@ -73,10 +84,17 @@ public class MyStoreTest {
             TestPages.myStorePage.confirmationPasswordInput()
                     .sendKeys(newPassword);
             TestPages.myStorePage.saveButton()
-                            .click();
+                    .click();
             TestPages.myStorePage.alertText()
                     .shouldBe(visible)
                     .shouldHave(text("There is 1 error"));
+        });
+
+        step("Выйти из аккаунта", () -> {
+            TestPages.myStorePage.logoutButton()
+                    .click();
+            TestPages.myStorePage.emailInput()
+                    .shouldBe(visible);
         });
 
     }
