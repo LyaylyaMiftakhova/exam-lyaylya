@@ -73,7 +73,7 @@ public class MyStoreTest {
             TestPages.myStorePage.confirmationPasswordInput()
                     .sendKeys(newPassword);
             TestPages.myStorePage.saveButton()
-                            .click();
+                    .click();
             TestPages.myStorePage.alertText()
                     .shouldBe(visible)
                     .shouldHave(text("There is 1 error"));
