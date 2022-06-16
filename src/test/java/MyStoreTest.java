@@ -32,6 +32,7 @@ public class MyStoreTest {
             TestPages.myStorePage.productBlock()
                     .scrollTo();
             TestPages.myStorePage.addToCardButton()
+                    .shouldBe(visible)
                     .click();
             TestPages.myStorePage.addProductModal()
                     .shouldBe(visible)
